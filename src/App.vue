@@ -5,9 +5,12 @@
       <el-header>
         <Nav></Nav>
       </el-header>
-      <el-container style="width:1100px;margin:0 auto;border:1px solid blue;">
-        <el-main>
-          <router-view />
+      <el-container style="width:1100px;margin:0 auto;border:1px solid blue;"
+                    v-loading="loading">
+        <el-main v-loading="loading">
+          <transition name="el-fade-in-linear">
+            <router-view />
+          </transition>
         </el-main>
         <el-aside width="250px">Aside</el-aside>
       </el-container>
@@ -18,7 +21,23 @@
 
 <script>
 export default {
-  name: 'App'
+  name: 'App',
+  data () {
+    return {
+      loading: false,
+      test: 1,
+    }
+  },
+  created: () => {
+    _this.loading = true;
+  },
+  updated: () => {
+    _this.loading = false;
+  },
+  mounted: () => {
+    _this.loading = false;
+  }
+
 }
 </script>
 
@@ -27,7 +46,7 @@ export default {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
+
   color: #2c3e50;
 }
 body {
